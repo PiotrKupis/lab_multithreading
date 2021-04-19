@@ -38,5 +38,16 @@ class RadarTest {
         verify(batteryMock, times(rocketCount)).launchPatriot(enemyMissile);
     }
 
+    @RepeatedTest(5)
+    void setSendingZeroRocketsShouldInvokeLaunchPatriotZeroTimes() {
+
+        int rocketCount = 0;
+        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, dummyExecutorService);
+        Scud enemyMissile = new Scud();
+        radar.notice(enemyMissile);
+
+        verify(batteryMock, times(rocketCount)).launchPatriot(enemyMissile);
+    }
+
 
 }
