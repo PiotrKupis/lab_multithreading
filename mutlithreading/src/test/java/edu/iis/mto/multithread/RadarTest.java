@@ -16,12 +16,12 @@ class RadarTest {
     @Mock
     private PatriotBattery batteryMock;
     @Mock
-    private ExecutorService dummyExecutorService;
+    private ExecutorService executorServiceMock;
 
     @BeforeEach
     void setup() {
 
-        when(dummyExecutorService.submit(any(Runnable.class))).thenAnswer(invocation -> {
+        when(executorServiceMock.submit(any(Runnable.class))).thenAnswer(invocation -> {
             ((Runnable) invocation.getArgument(0)).run();
             return null;
         });
@@ -31,7 +31,7 @@ class RadarTest {
     void setSendingOneRocketShouldInvokeLaunchPatriotOneTime() {
 
         int rocketCount = 1;
-        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, dummyExecutorService);
+        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, executorServiceMock);
         Scud enemyMissile = new Scud();
         radar.notice(enemyMissile);
 
@@ -42,7 +42,7 @@ class RadarTest {
     void setSendingZeroRocketsShouldInvokeLaunchPatriotZeroTimes() {
 
         int rocketCount = 0;
-        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, dummyExecutorService);
+        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, executorServiceMock);
         Scud enemyMissile = new Scud();
         radar.notice(enemyMissile);
 
@@ -53,7 +53,7 @@ class RadarTest {
     void setSendingTenRocketsShouldInvokeLaunchPatriotTenTimes() {
 
         int rocketCount = 10;
-        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, dummyExecutorService);
+        BetterRadar radar = new BetterRadar(batteryMock, rocketCount, executorServiceMock);
         Scud enemyMissile = new Scud();
         radar.notice(enemyMissile);
 
